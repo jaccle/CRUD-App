@@ -1,0 +1,52 @@
+<% layout('layout') -%>
+
+<div class="row">
+	<div class="col-xs-2"></div>
+		<div class="col-xs-8">
+			<h2> Allergies</h2>
+		</div>
+	<div class="col-xs-2"></div>
+</div>
+<% students.forEach(function (student) { %>
+	<% if (student.allergies !== '') { %>
+	 <div class="row">
+		<div class="col-xs-2"></div>
+			<div class="col-xs-8">
+				<div class="panel panel-danger">
+            <!-- Default panel contents -->
+            	<div class="panel-heading"><b><%= student.lastName %>, <%= student.firstName %></b><a href="/student/edit/<%= student.id %>"><button  style="margin: 0 2%" type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit"></span> Update Info</button></a></div>
+	            <div class="panel-body">
+	                <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"> <%= student.allergies.toUpperCase() %></p>
+
+	            </div>
+	        </div>
+        </div>
+		<div class="col-xs-2"></div>
+     </div>
+    <% } %>
+<% }) %>
+
+<div class="row">
+	<div class="col-xs-2"></div>
+		<div class="col-xs-8">
+			<h2> Other Information</h2>
+		</div>
+	<div class="col-xs-2"></div>
+</div>
+<% students.forEach(function (student) { %>
+	<% if (student.other !== '') { %>
+	 <div class="row">
+		<div class="col-xs-2"></div>
+			<div class="col-xs-8">
+				<div class="panel panel-warning">
+            <!-- Default panel contents -->
+            	<div class="panel-heading"><b><%= student.lastName %>, <%= student.firstName %> <a href="/student/edit/<%= student.id %>"><button  style="margin: 0 2%" type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit"></span> Update Info</button></a></b></div>
+	            <div class="panel-body">
+	                <p><span class="glyphicon glyphicon-info-sign"></span> <%= student.other %></p>
+	            </div>
+	        </div>
+        </div>
+		<div class="col-xs-2"></div>
+     </div>
+    <% } %>
+<% }) %>

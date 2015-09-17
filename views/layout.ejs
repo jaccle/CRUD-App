@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Class Roster</title>
+	<!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <!-- Sortable Tables -->
+   <script src="sorttable.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a href="/"><span class="glyphicon glyphicon-blackboard"></span> Manage Class</a></li>
+      <li><a href="/student/add"><span class="glyphicon glyphicon-plus"></span> Add Student</a></li>
+      <li><a href="/class/grades"><span class="glyphicon glyphicon-education"></span>  Gradebook</a></li>
+      <li><a href="/class/important"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"> Important Information</a></li>
+      <li><a href="/class/birthdays"><span class="glyphicon glyphicon-gift" aria-hidden="true"> Birthdays</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+	<section>
+      <%- body -%>     
+    </section>
+</body>
+</html>
