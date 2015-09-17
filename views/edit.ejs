@@ -1,54 +1,56 @@
 <% layout('layout') -%>
-
-<div class="col-sm-2"></div>
-<div class="col-sm-8">
-    <div class="jumbotron">
-        <div class="form-group form-group-lg" style="padding: 0 8%">
-            <h2>Edit Student Information</h2>
-            <form action="/student/<%= student.id %>?_method=put" method="POST">
-            	<div class="form-group">
-            		<label class="control-label" for="number">Number:</label>
-                	<input type="text" id="number" value="<%= student.number %>" class="form-control">
-            	</div>
-            	<div class="form-group">
-            		<label class="control-label" for="fname">First Name:</label>
-                <input type="text" id="fname" value="<%= student.firstName %>" class="form-control" autofocus required>
-            	</div>
-            	<div class="form-group">
-            		<label class="control-label" for="lname">Last Name:</label>
-                <input type="text" id="lname" value="<%= student.lastName %>" class="form-control">
-            	</div>
-            	<div class="form-group">
-            		<label class="control-label" for="nname">Nick Name:</label>
-                <input type="text" id="nname" value="<%= student.nickName %>" class="form-control">
-            	</div>
-            	<div class="form-group">
-            		<label class="control-label" for="gender">Gender:</label>
-                	<input type="text" id="gender" value="<%= student.gender %>" class="form-control">
-            	</div>
-            	<div class="form-group">
-            		<label for="age">Age:</label>
-                <input type="number" id="age" value="<%= student.age %>" class="form-control">
-            	</div>
-            	<div class="form-group">
-            		<label for="birthdate">Birth Date:</label>
-                <input type="date" id="birthdate" value="<%= student.birthday %>" class="form-control">
-            	</div>
-            	<div class="form-group">
-            		<label class="control-label" for="allergies">Allergies:</label>
-                <input type="text" id="allergies" value="<%= student.allergies %>" class="form-control">
-            	</div>
-            	<div class="form-group">
-            		<label class="control-label" for="othre">Other Info:</label>
-                <input type="text" id="other" value="<%= student.other %>" class="form-control">
-            	</div>
-	          
-                <input type="submit" id="add" value="Update Student Info" class="btn btn-primary btn-lg" style="margin: 2%">
-            </form>
-            <form action="/student/<%= student.id %>?_method=delete" method="POST" style="padding: 0 2.5%; width: 100%">
-	            <button type="submit" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Delete Student</button>
-			</form>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <div class="jumbotron">
+            <div class="form-group form-group-lg" style="padding: 0 8%">
+                <h2>Edit Student Information</h2>
+                <form action="/student/<%= student.id %>?_method=put" method="POST">
+                    <div class="form-group">
+                        <label for="teacher">Homeroom Teacher:</label>
+                        <input type="text" id="teacher" value="<%= student.teacher %>" name="student[teacher]" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="number">Number:</label>
+                        <input type="text" id="number" value="<%= student.number %>" name="student[number]" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="fname">First Name:</label>
+                        <input type="text" id="fname" value="<%= student.firstName %>" name="student[firstName]" class="form-control" autofocus required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="lname">Last Name:</label>
+                        <input type="text" id="lname" value="<%= student.lastName %>" name="student[lastName]" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="nname">Nick Name:</label>
+                        <input type="text" id="nname" value="<%= student.nickName %>" name="student[nickName]" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="gender">Gender:</label>
+                        <input type="text" id="gender" value="<%= student.gender %>" name="student[gender]" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age:</label>
+                        <input type="number" id="age" value="<%= student.age %>" name="student[age]" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="birthdate">Birth Date:</label>
+                        <input type="date" id="birthdate" value="<%= student.birthday %>" name="student[birthday]" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="allergies">Allergies:</label>
+                        <input type="text" id="allergies" value="<%= student.allergies %>" name="student[allergies]" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="othre">Other Info:</label>
+                        <input type="text" id="other" value="<%= student.other %>" name="student[other]" class="form-control">
+                    </div>
+                    <input type="submit" id="add" value="Update Student Info" class="btn btn-primary btn-lg" style="margin: 2%">
+                </form>
+                <form action="/student/<%= student.id %>?_method=delete" method="POST" style="padding: 0 2.5%; width: 100%">
+                    <button type="submit" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Delete Student</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<div class="col-sm-2"></div>
+    <div class="col-sm-2"></div>

@@ -1,32 +1,32 @@
 <% layout('layout') -%>
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
-            <div class="panel panel-primary">
-  <!-- Default panel contents -->
-  <div class="panel-heading"><span class="glyphicon glyphicon-gift" aria-hidden="true"> Birthdays!</div>
+                <div class="panel panel-primary">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading"><span class="glyphicon glyphicon-gift" aria-hidden="true"> Birthdays</div>
 
   <!-- Table -->
   
                 <table class="table table-striped sortable">
-                    <tr>
-                        <th>Nick Name</th>
-                        <th>Last Name</th>
-                        <th>Birthday</th>
-                    </tr>
-                    
-                    <% students.forEach(function (student) { %>
-                    <tr>
-	                    <td><%= student.nickName %></td>
-	                    <td><%= student.lastName %></td>
-	                    <td><%= student.birthday %></td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Birthday</th>
+                        </tr>
+                    </thead>
+                        <% students.forEach(function (student) { %>
+                        <tr>
+                            <td><%= student.firstName %></td>
+                            <td><%= student.lastName %></td>
+                            <td><%= student.birthday %></td>
+                        </tr>
                       <% }) %>
                 </table>
             </div>
-         	<div class="col-lg-3"></div>
+            <div class="col-lg-3"></div>
         </div>
     </div>
 </div>

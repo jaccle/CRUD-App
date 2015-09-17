@@ -13,11 +13,11 @@ var studentSchema = new mongoose.Schema({
                    birthday: String,
                    allergies: String,
                    other: String,
-                   homeroomTeacher: String,
-                   grades: {
+                   teacher: String,
+                   grades: [{
                      assignment: String,
                      grade: String
-                    }
+                    }]
                   });
 
 

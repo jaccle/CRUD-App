@@ -26,10 +26,13 @@ app.use(express.static(__dirname + "/public"));
 
 //root
 app.get('/', function(req, res) {
-    db.Student.find({}, function(err, doc) {
-        console.log(doc);
-        res.render('index', {
-            students: doc
+    db.Student.findOne({teacher: {$exists: true}}, function (err, teacher) {
+        db.Student.find({}, function(err, doc) {
+            console.log("All students are: ", doc);
+            res.render('index', {
+                students: doc,
+                teacher: teacher
+            });
         });
     });
 });
@@ -101,9 +104,10 @@ app.put('/student/:id', function(req, res) {
         birthday = req.body.birthday,
         allergies = req.body.allergies,
         other = req.body.other,
-        homeroomTeacher = req.body.homeroomTeacher,
+        teacher = req.body.teacher,
         grades = req.body.grades;
-    db.Student.findByIdAndUpdate(id, req.body, function(err, doc) {
+        console.log("request body is: ", req.body);
+    db.Student.findByIdAndUpdate(id, req.body.student, function(err, doc) {
         if (doc) {
             res.redirect("/");
         } else {
@@ -113,10 +117,10 @@ app.put('/student/:id', function(req, res) {
 });
 
 // Update teacher
-app.put('class', function(req, res) {
+app.put('/class', function(req, res) {
     var id = req.params.id;
-    var homeroomTeacher = req.body.homeroomTeacher;
-    db.Student.find(id, req.body, function(err, doc) {
+    var teacher = req.body.student.teacher;
+    db.Student.update({}, {$set: {teacher: teacher}}, {multi: true}, function(err, doc) {
         if (doc) {
             res.redirect("/");
         } else {
