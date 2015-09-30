@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var assignmentSchema = new mongoose.Schema({
-	grades: [{type: String, default: '-'}],//index number student.number, 
+	grades: Array,//index number student.number, 
 	//index number corresponds to student in students field array below
 	//to keep index number relevant to student info, set a default to reset grades if student is deleted
 	name: String,

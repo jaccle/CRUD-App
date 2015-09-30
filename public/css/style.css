@@ -1,0 +1,8 @@
+.ccore {
+	height: 100px;
+	overflow-y: scroll;
+}
+
+li {
+	text-decoration: none;
+}

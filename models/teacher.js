@@ -23,7 +23,8 @@ var teacherSchema = new mongoose.Schema({
 	students: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Student"
-	}]
+	}],
+    counter: Number
 	//birthday, allergies(for caf), address, phone, classes: student
 });
 

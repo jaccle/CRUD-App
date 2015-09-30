@@ -1,0 +1,87 @@
+<% layout('assignment/boilerplate') -%>
+    <div class="col-xs-2"></div>
+    <div class="col-xs-8">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">New Assignment</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-2"></div>
+                <div class="form-group form-group-lg" style="padding: 0 8%">
+                    <form action="/teachers/<%= teacher.id %>/grades" method="POST">
+                        <div class="row">
+                            <div class="form-group form-group-lg">
+                                <h3>Name of Assignment:</h3>
+                                <input type="text" id="name" name="assignment[name]" class="form-control" autofocus required>
+                                <input type="hidden" id="gradeLevel" value="<%= teacher.gradeLevel %>">
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#Standards" aria-controls="Standards" role="tab" data-toggle="tab">Standards</a></li>
+                                    <li role="presentation" id="math"><a href="#math" aria-controls="math" role="tab" data-toggle="tab">Math</a></li>
+                                    <li role="presentation" id="ELA"><a href="#ela" aria-controls="ela" role="tab" data-toggle="tab">ELA</a></li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="Standards">
+                                        <h2>Choose Common Core Standards</h2>
+                                        <h2>Grade Level: <%= teacher.gradeLevel %></h2>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="math">
+                                        <div class="span9 ccore">
+                                            <div class="page-header span9 offset1">
+                                                <div id="curriculum-grade-header"></div>
+                                            </div>
+                                            <div class="well span9 offset1">
+                                                <div id="list-of-standards"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="ela">
+                                        <div class="span9 ccore">
+                                            <div class="page-header span9 offset1">
+                                                <div id="curriculum-grade-header"></div>
+                                            </div>
+                                            <div class="well span9 offset1">
+                                                <div id="list-of-standards"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Tab content -->
+                            </div>
+                            <!-- Tabs -->
+                            </div>
+                            <div class="form-group">
+                                <table class="table table-striped">
+                            <tr>
+                                <th class="col-xs-1">#</th>
+                                <th class="col-xs-3">First Name</th>
+                                <th class="col-xs-3">Last Name</th>
+                                <th class="col-xs-1">Grade</th>
+                            </tr>
+                                <% students.forEach(function (student) { %>
+                                    <tr>
+                                            <td><%= student.number %></td>
+                                            <td><%= student.firstName %></td>
+                                            <td><%= student.lastName %></td>
+                                            <td>-</td>
+                                        </a>
+                                    </tr>
+                                    <% }); %>
+                            </table>
+                        </div>
+                            </div>
+                        <div class="form-group">
+                            <input type="submit" id="work" value="Add Assignment" class="btn btn-default btn-lg">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="col-xs-2"></div>
+    <script src="/core.js"></script>

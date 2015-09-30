@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Class Roster</title>
+    <title>Teacher Portal</title>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
@@ -14,7 +14,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <!-- Sortable Tables -->
     <script src="/sorttable.js"></script>
-
+<link href="/css/simple-sidebar.css" rel="stylesheet">
     <script src="/script.js"></script>
 </head>
 
@@ -34,23 +34,29 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="/teachers/<%= teacher.id %>/students"><span class="glyphicon glyphicon-blackboard"></span> Manage Class</a></li>
-                    <li><a href="/grades"><span class="glyphicon glyphicon-education"></span>  Gradebook</a></li>
+                    <li><a href="/teachers/<%= teacher._id %>/students"><span class="glyphicon glyphicon-blackboard"></span> Manage Class</a></li>
+                    <li><a href="/teachers/<%= teacher.id %>/grades"><span class="glyphicon glyphicon-education"></span>  Gradebook</a></li>
                     <!-- <li><a href="#"><span class="glyphicon glyphicon-check" aria-hidden="true"> Attendance</a></li> -->
                     <li><a href="/teachers/<%= teacher.id %>/edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"> Edit Personal Info</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"> Logout <%= teacher.firstname %> <%= teacher.lastName %></a></li>
-                    <!-- <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-road"> Site Navigation <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
+                        <li class="dropdown-header"><span class="glyphicon glyphicon-apple"></span> Teacher</li> 
+                            <li><a href="/teachers/<%= teacher._id %>"> Home Page </a></li>
+                            <li><a href="/teachers/<%= teacher.id %>/edit">Edit Personal Info</a></li>
+                        <li class="dropdown-header"><span class="glyphicon glyphicon-blackboard"></span> Manage Class</li> 
+                            <li><a href="/teachers/<%= teacher._id %>/students">View All Students</a></li>
+                            <li><a href="/teachers/<%= teacher._id %>/students/important"> Important Information</a></li>
+                            <li><a href="/students/new">Add Student</a></li>
+                            <li><a href="/teachers/<%= teacher._id %>/students/birthdays"> Birthdays</a></li>
+                        <li class="dropdown-header"><span class="glyphicon glyphicon-education"></span>  Gradebook</li> 
+                            <li><a href="/teachers/<%= teacher._id %>/grades"> View Assignments</a></li>
+                            <li><a href="/teachers/<%= teacher._id %>/grades/new"> Add Assignment</a></li>
                         </ul>
-                    </li> -->
+                    </li>
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"> Logout <%= teacher.firstname %> <%= teacher.lastName %></a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

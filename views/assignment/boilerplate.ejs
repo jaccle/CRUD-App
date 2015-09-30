@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Class Roster</title>
+    <title>Teacher Portal | Gradebook</title>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,10 +14,10 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -39,14 +39,42 @@
 <body>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/teachers/<%= teacher._id %>"><span class="glyphicon glyphicon-home" aria-hidden="true"> </a>
+            </div>
             <ul class="nav navbar-nav">
-                <li><a href="/"><span class="glyphicon glyphicon-blackboard"></span> Manage Class</a></li>
-                <li><a href="/student/add"><span class="glyphicon glyphicon-plus"></span> Add Student</a></li>
-                <li><a href="/grades"><span class="glyphicon glyphicon-education"></span>  Gradebook</a></li>
-                <li><a href="/class/important"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"> Important Information</a></li>
-                <li><a href="/class/birthdays"><span class="glyphicon glyphicon-gift" aria-hidden="true"> Birthdays</a></li>
+                <li><a href="#menu-toggle" id="menu-toggle"><span class="glyphicon glyphicon-indent-right"></span> Toggle Sidebar</a></li>
+                <li><a href="/teachers/<%= teacher._id %>/students"><span class="glyphicon glyphicon-blackboard"></span> Manage Class</a></li>
+                <li><a href="/teachers/<%= teacher._id %>/grades"><span class="glyphicon glyphicon-education"></span>  Gradebook</a></li>
+                <li><a href="/teachers/<%= teacher._id %>/grades/new"><span class="glyphicon glyphicon-plus"></span> Add Assignment</a></li>
             </ul>
-        </div>
+            <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-road"> Site Navigation <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                        <li class="dropdown-header"><span class="glyphicon glyphicon-apple"></span> Teacher</li> 
+                            <li><a href="/teachers/<%= teacher._id %>"> Home Page </a></li>
+                            <li><a href="/teachers/<%= teacher.id %>/edit">Edit Personal Info</a></li>
+                        <li class="dropdown-header"><span class="glyphicon glyphicon-blackboard"></span> Manage Class</li> 
+                            <li><a href="/teachers/<%= teacher._id %>/students">View All Students</a></li>
+                            <li><a href="/teachers/<%= teacher._id %>/students/important"> Important Information</a></li>
+                            <li><a href="/students/new">Add Student</a></li>
+                            <li><a href="/teachers/<%= teacher._id %>/students/birthdays"> Birthdays</a></li>
+                        <li class="dropdown-header"><span class="glyphicon glyphicon-education"></span>  Gradebook</li> 
+                            <li><a href="/teachers/<%= teacher._id %>/grades"> View Assignments</a></li>
+                            <li><a href="/teachers/<%= teacher._id %>/grades/new"> Add Assignment</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"> Logout <%= teacher.firstname %> <%= teacher.lastName %></a></li>
+                </ul>
+            </div>
     </nav>
     
     <div id="wrapper">
@@ -57,7 +85,7 @@
                 <li class="sidebar-brand"><h4>View grades for...</h4></li>
             <% students.forEach(function (student) { %>
                 <li>
-                    <a href="/student/grades/:id"><%= student.firstName %> <%= student.lastName %></a>
+                    <a href="/students/<%= student.id %>/grades"><%= student.number %>. <%= student.firstName %> <%= student.lastName %></a>
                 </li>
             <% }) %>
             </ul>
@@ -72,10 +100,7 @@
 
                         <%- body -%>
 
-                        <br>
-                        <blockquote>
-                        <footer><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Show/Hide Class</a></footer>
-                        </blockquote>
+                        
                     </div>
                 </div>
             </div>

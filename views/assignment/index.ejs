@@ -1,15 +1,17 @@
-<% layout('students/boilerplate') -%>
+<% layout('assignment/boilerplate') -%>
 
 <h1><span class="glyphicon glyphicon-education"></span>  Gradebook Home</h1>
 
 <h2>Assignments</h2>
 <p>Click on assignment to view grades</p>
 
+<% if (assignments) {%>
 <% assignments.forEach(function (assignment) { %>
 
 <a href=""><% assignment.name %> </a> 
 
 <% }) %>
+<% } %>
  <!-- <span>get from one kid
 date assignment name
 

@@ -103,10 +103,10 @@ app.get('/logout', function(req, res) {
 //TEACHER index
 
 app.get('/teachers/:id', loginMiddleware, function(req, res) {
-    db.Teacher.findById(req.params.id).populate('students').exec(function(err, doc) {
+    db.Teacher.findById(req.session.id).populate('students').exec(function(err, doc) {
         res.render('teacher/index', {
             teacher: doc,
-            session: req.session.id
+            students: doc.students
         });
     });
 });
@@ -123,7 +123,7 @@ app.get('/teachers/:id', loginMiddleware, function(req, res) {
 // });
 
 app.get('/teachers/:id/edit', loginMiddleware, function(req, res) {
-    var id = req.params.id;
+    var id = req.session.id;
     db.Teacher.findById(id, function(err, doc) {
         res.render('teacher/edit', {
             teacher: doc,
@@ -133,10 +133,10 @@ app.get('/teachers/:id/edit', loginMiddleware, function(req, res) {
 });
 
 app.put('/teachers/:id', loginMiddleware, function(req, res) {
-    var id = req.params.id;
-        
+    var id = req.session.id;
+
     // findByIdAndUpdate does not work with save() which is needed to hash, so use findById and reformat information to be updated as follows
-    db.Teacher.findById(id, function(err,teacher){
+    db.Teacher.findById(id, function(err, teacher) {
         teacher.firstname = req.body.teacher.firstname;
         teacher.lastName = req.body.teacher.lastName;
         teacher.prefix = req.body.teacher.prefix;
@@ -144,20 +144,20 @@ app.put('/teachers/:id', loginMiddleware, function(req, res) {
         teacher.email = req.body.teacher.email;
         teacher.password = req.body.teacher.password;
         teacher.assignments = req.body.teacher.assignments;
-        teacher.students = req.body.teacher.students;
         teacher.save(function(err, doc) {
-                if (req.params.id) {
-                    res.redirect("/teachers/" + doc.id);
-                } else {
-                    res.render("/teachers/" + doc.id + "/edit");
-                }
-            });         
+            if (req.params.id) {
+                res.redirect("/teachers/" + doc.id);
+            } else {
+                res.render("/teachers/" + doc.id + "/edit");
+            }
         });
     });
+});
 
 //see class
 app.get('/teachers/:id/students', loginMiddleware, function(req, res) {
-    db.Teacher.findById(req.params.id).populate('students').exec(function(err, doc) {
+    var id = req.session.id;
+    db.Teacher.findById(req.session.id).populate('students').exec(function(err, doc) {
         res.render('students/index', {
             teacher: doc,
             session: req.session.id
@@ -169,36 +169,32 @@ app.get('/teachers/:id/students', loginMiddleware, function(req, res) {
 
 //View birthdays
 app.get('/teachers/:id/students/birthdays', loginMiddleware, function(req, res) {
-    db.Teacher.findById(req.params.id).populate('students').exec(
+    db.Teacher.findById(req.session.id).populate('students').exec(
         function(err, doc) {
-        console.log("BIRTHDAYS "+doc);
-        res.render('teacher/birthday', {
-            students: doc.students,
-            teacher: doc
+            console.log("BIRTHDAYS " + doc);
+            res.render('teacher/birthday', {
+                students: doc.students,
+                teacher: doc
+            });
         });
-    });
 });
 
 //View important information
 app.get('/teachers/:id/students/important', loginMiddleware, function(req, res) {
-    db.Student.find({
-        allergies: {
-            $exists: true
-        }
-    }, function(err, doc) {
-        res.render('important', {
-            students: doc,
-            session: req.session.id,
-            teacher: req.params.teacher_id
+    db.Teacher.findById(req.params.id).populate('students').exec(
+        function(err, doc) {
+            res.render('teacher/important', {
+                students: doc.students,
+                teacher: doc
+            });
         });
-    });
 });
 
 
 //Add a student
-app.get('/teachers/:teacher_id/students/new', loginMiddleware, function(req, res) {
+app.get('/students/new', loginMiddleware, function(req, res) {
     console.log("SESSION " + req.session.id);
-    db.Teacher.findById(req.params.teacher_id, function(err, doc) {
+    db.Teacher.findById(req.session.id, function(err, doc) {
         res.render('students/new', {
             teacher: doc,
             session: req.session.id
@@ -210,8 +206,7 @@ app.post('/teachers/:teacher_id/students', loginMiddleware, function(req, res) {
     db.Student.create(req.body.student, function(err, student) {
         db.Teacher.findById(req.params.teacher_id, function(err, teacher) {
             student.teacher = teacher.id;
-            student.save(function(err, student) {
-            });
+            student.save(function(err, student) {});
             teacher.students.push(student);
             teacher.save(function(err, teacher) {
                 console.log(err);
@@ -300,18 +295,18 @@ app.put('/teachers/:teacher_id/students/:id', loginMiddleware, function(req, res
         password: password,
         assignments: assignments
     }, function(err, doc) {
-            if (doc) {
-                doc.populate('teacher');
-                doc.save();
-                res.redirect('/teachers/' + req.params.teacher_id + '/students/' + id);
-            } else {
-                res.render('students/edit', {
-                    student: doc,
-                    session: req.session.id,
-                    teacher: doc.teacher
-                });
-            }
-        });
+        if (doc) {
+            doc.populate('teacher');
+            doc.save();
+            res.redirect('/teachers/' + req.params.teacher_id + '/students/' + id);
+        } else {
+            res.render('students/edit', {
+                student: doc,
+                session: req.session.id,
+                teacher: doc.teacher
+            });
+        }
+    });
 });
 
 // !!!!!!!!!!!!!// Update teacher
@@ -328,6 +323,7 @@ app.put('/teachers/:teacher_id/students/:id', loginMiddleware, function(req, res
 // });
 
 // Remove one student
+//Do NOT delete student as it will mess up the gradebook. Instead, delete resets all their grades and info
 app.delete('/teachers/:teacher_id/students/:id', loginMiddleware, function(req, res) {
     var id = req.params.id;
     db.Student.findByIdAndRemove(id, req.body, function(err, doc) {
@@ -336,28 +332,92 @@ app.delete('/teachers/:teacher_id/students/:id', loginMiddleware, function(req, 
 });
 
 //View gradebook
-app.get('/grades', loginMiddleware, function(req, res) {
+// app.get('/teachers/' + req.params.teacher_id + '/grades', loginMiddleware, function(req, res) {
+//     var id = req.params.id;
+//     db.Assignment.find({}, function(err, assignment) {
+//         db.Student.find({}, function(err, student) {
+//             console.log("session: " + req.session.id + ', teacher id' + id);
+//             res.render('assignment/index', {
+//                 assignments: assignment,
+//                 teacher: req.session.id,
+//                 students: student
+//             });
+//         });
+//     });
+// });
+
+app.get('/teachers/:id/grades', loginMiddleware, function(req, res) {
     var id = req.params.id;
-    db.Assignment.find({}, function(err, doc) {
-        console.log("session: "+req.session.id +', teacher id'+id);
+    db.Teacher.findById(id).populate('students').populate('assignments').exec(
+        function(err, doc) {
+            console.log("session: " + req.session.id, 'doc: ' + doc);
             res.render('assignment/index', {
-                assignments: doc,
-                teacher: req.session.id
+                assignments: doc.students[0].assignments,
+                teacher: doc,
+                students: doc.students
+            });
         });
+});
+
+
+//Add An assignment
+
+app.get('/teachers/:id/grades/new', loginMiddleware, function(req, res) {
+    db.Teacher.findById(req.params.id).populate('students').populate('assignments').exec(
+        function(err, doc) {
+            console.log(doc);
+            console.log("session: " + req.session.id, 'doc: ' + doc);
+            res.render('assignment/new', {
+                assignments: doc.students.assignments,
+                teacher: doc,
+                students: doc.students
+            });
+        });
+});
+
+app.post('/teachers/:id/grades', loginMiddleware, function(req, res) {
+    db.Assignment.create(req.body.assignment, function(err, assignment) {
+        console.log(req.body.assignment);
+        //only want students for this teacher
+        db.Teacher.findById(req.params.id).populate('students').populate('assignments').exec(
+            function(err, doc) {
+                doc.students.forEach(function(student) {
+                    assignment.students.push(student.id);
+                    assignment.save(function(err, student) {});
+                    student.push(assignment);
+                    student.save(function(err, student) {});
+                });
+                res.redirect('/teachers/' + req.params.teacher_id + '/grades');
+            });
     });
 });
 
 
-app.post('/grades/:id', loginMiddleware, function(req, res) {
-    db.Assignment.create(req.body.assignment, function(err, doc) {
-        res.redirect('/grades');
-    });
+//view a single student's grades
+app.get('/students/:id/grades', loginMiddleware, function(req, res) {
+    console.log("looking for student grades");
+    var id = req.params.id;
+    db.Teacher.findById(req.session.id).populate('students').exec(
+        function(err, teacher) {
+            console.log("teacher is", teacher);
+            db.Student.findById(id).populate('assignments').exec(function(err, student) {
+                console.log("student is", student);
+                res.render('assignment/student', {
+                    assignments: student.assignments,
+                    teacher: teacher,
+                    students: teacher.students,
+                    student: student
+                });
+            });
+
+            // res.redirect('/teachers/' + req.params.teacher_id + '/grades');
+        });
 });
 
 //Edit Assignments
 app.put('/teachers/:teacher_id/grades/:id', loginMiddleware, function(req, res) {
     db.Assignment.update(req.params.id, function(err, doc) {
-        res.redirect('/grades');
+        res.redirect('/teachers/' + req.params.teacher_id + '/grades');
     });
 });
 
@@ -368,7 +428,7 @@ app.get('/teachers/:teacher_id/grades/:id/edit', loginMiddleware, function(req, 
     db.Student.findById(id, function(err, doc) {
         res.render('assignment/editassign', {
             student: doc,
-            teacher: req.session.id
+            teacher: req.params.teacher_id
         });
     });
 });
@@ -378,7 +438,7 @@ app.put('/teachers/:teacher_id/grades/:id', loginMiddleware, function(req, res) 
     var assignment = req.body.assignment;
     db.Assignment.findByIdAndUpdate(id, req.body, function(err, doc) {
         if (doc) {
-            res.redirect("/grades");
+            res.redirect('/teachers/' + req.params.teacher_id + "/grades");
         }
     });
 });
@@ -388,20 +448,20 @@ app.delete('/teachers/:teacher_id/grades/:id', loginMiddleware, function(req, re
     var id = req.params.id;
     db.Assignment.findByIdAndRemove(id, req.body, function(err, doc) {
         if (doc) {
-            res.redirect("/grades");
+            res.redirect('/teachers/' + req.params.teacher_id + "/grades");
         }
     });
 });
 
 
 //View single assignment's grades
-app.get('/teachers/:teacher_id/students/:student_id/grades/:id', loginMiddleware, function(req, res) {
+app.get('/teachers/:teacher_id/students/:student_id/grades', loginMiddleware, function(req, res) {
     var id = req.params.id;
     db.Assignment.findById(id, function(err, doc) {
         if (doc) {
             res.render('assignment/show', {
                 student: doc,
-                teacher: req.session.id
+                teacher: req.params.teacher_id
             });
         }
     });
