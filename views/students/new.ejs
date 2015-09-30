@@ -4,7 +4,7 @@
         <div class="jumbotron">
             <div class="form-group form-group-lg" style="padding: 0 8%">
                 <h2>Add a Student</h2>
-                <form action="/student" method="POST">
+                <form action="/teachers/<%= teacher.id %>/students" method="POST">
                     <label class="control-label" for="number">Number:</label>
                     <input type="text" id="number" name="student[number]" class="form-control">
                     <label class="control-label" for="fname">First Name:</label>
@@ -18,15 +18,12 @@
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
-                    <label for="age">Age:</label>
-                    <input type="number" id="age" name="student[age]" class="form-control">
                     <label for="birthdate">Birth Date:</label>
                     <input type="date" id="birthdate" name="student[birthday]" class="form-control">
                     <label class="control-label" for="allergies">Allergies:</label>
                     <input type="text" id="allergies" name="student[allergies]" class="form-control">
                     <label class="control-label" for="othre">Other Info:</label>
                     <input type="text" id="other" name="student[other]" class="form-control">
-                    <input type="hidden" id="teacher" name="student[teacher]" class="form-control">
                     <input type="submit" id="add" value="Welcome Student" class="btn btn-primary btn-lg" style="margin: 2%">
                 </form>
             </div>

@@ -9,3 +9,87 @@
 
 	</div>
 </div>
+
+<div class="row">
+                <div class="col-sm-4">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">First Parent/Guardian</h3>
+                        </div>
+                        <div class="panel-body">
+                            <dl>
+                                <dt>Full Name</dt>
+                                <dd>
+                                    <%= student.parent1[0].fullname %>
+                                </dd>
+                                <dt>Relationship</dt>
+                                <dd>
+                                    <%= student.parent1[0].relationship %>
+                                </dd>
+                                <dt>Phone</dt>
+                                <dd>
+                                    <%= student.parent1[0].phone %>
+                                </dd>
+                                <dt>Work Phone</dt>
+                                <dd>
+                                    <%= student.parent1[0].workPhone %>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Second Parent/Guardian</h3>
+                            </div>
+                            <div class="panel-body">
+	                            <dl>
+	                                <dt>Full Name</dt>
+	                                <dd>
+	                                    <%= student.parent2[0].fullname %>
+	                                </dd>
+	                                <dt>Relationship</dt>
+	                                <dd>
+	                                    <%= student.parent2[0].relationship %>
+	                                </dd>
+	                                <dt>Phone</dt>
+	                                <dd>
+	                                    <%= student.parent2[0].phone %>
+	                                </dd>
+	                                <dt>Work Phone</dt>
+	                                <dd>
+	                                    <%= student.parent2[0].workPhone %>
+	                                </dd>
+	                            </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Emergency Contact</h3>
+                            </div>
+                            <div class="panel-body">
+                                <dl>
+                                <dt>Full Name</dt>
+                                <dd>
+                                    <%= student.emergency[0].fullname %>
+                                </dd>
+                                <dt>Relationship</dt>
+                                <dd>
+                                    <%= student.emergency[0].relationship %>
+                                </dd>
+                                <dt>Phone</dt>
+                                <dd>
+                                    <%= student.emergency[0].phone %>
+                                </dd>
+                                <dt>Work Phone</dt>
+                                <dd>
+                                    <%= student.emergency[0].workPhone %>
+                                </dd>
+                            </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>

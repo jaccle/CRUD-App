@@ -1,11 +1,11 @@
-<% layout('layout') -%>
+<% layout('students/boilerplate') -%>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-1"></div>
             <div class="col-lg-10">
                 <div class="panel panel-primary">
                     <!-- Default panel contents -->
-                    <div class="panel-heading"><span class="glyphicon glyphicon-user" aria-hidden="true"> <%= teacher.teacher %>'s Class</div>
+                    <div class="panel-heading"><span class="glyphicon glyphicon-user" aria-hidden="true"> <%= teacher.prefix %> <%= teacher.lastName %>'s Class</div>
                 <table class="table table-hover table-striped sortable">
                     <thead>
                         <tr>
@@ -20,37 +20,39 @@
                         </tr>
                     </thead>
 
-                    <% students.forEach(function (student) { %>
+                    <% if (teacher.students) {%>
+                    <% teacher.students.forEach(function (student) { %>
                     <tr>
                         <td class="col-xs-1"><%= student.number %></td>
                         <td><%= student.lastName %></td>
                         <td><%= student.firstName %></td>
                         <td><%= student.nickName %></td>
                         <td><%= student.birthday %></td>
-                        <td class="col-xs-1"><a href="/student/info/<%= student.id %>"><button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-info-sign"></span></td>
+                        <td class="col-xs-1"><a href="/teachers/<%= teacher.id %>/students/<%= student.id %>"><button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-info-sign"></span></td>
                         <td class="col-xs-1">
-                            <a href="/student/edit/<%= student.id %>">
+                            <a href="/teachers/<%= teacher.id %>/students/<%= student.id %>/edit">
                                 <button type="button" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span></button>
                             </a>
                         </td>
                         <td class="col-xs-1">
-                            <a href="/class/grades/">
+                            <a href="/student/grades/:id">
                                 <button type="button" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-pencil"></span></button>
                             </a>
                         </td>
                         </td>
                         </tr>
                         <% }) %>
+                        <% } %>
                             </table>
                     </div>
-                    <form action="/class?_method=put" method="POST" class="form-inline" style="margin: 2%;">
+                    <!-- <form action="/class?_method=put" method="POST" class="form-inline" style="margin: 2%;">
                         <div class="form-group">
                             <label class="control-label" for="teacher">
                                 <h6>Update Class's Homeroom Teacher:</h6></label>
                             <input type="text" class="form-control input-sm" id="teacher" name="student[teacher]">
                         </div>
-                        <button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-apple" aria-hidden="true"> Update Teacher</button>
-            </form>
+                        <!-- <button type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-apple" aria-hidden="true"> Update Teacher</button> -->
+            <!-- </form>  -->
             <div class="col-lg-1"></div>
         </div>
     </div>

@@ -1,0 +1,65 @@
+<% layout('students/boilerplate') -%>
+    <div class="col-xs-2"></div>
+    <div class="col-xs-8">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title"><%= student.lastName %>, <%= student.firstName %></h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <a href="/teachers/<%= teacher.id %>/students/<%= student.id %>/edit">
+                        <button style="margin: 2%" type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update Student Information</button>
+                    </a>
+                    <dl>
+                        <dt>Nick Name</dt>
+                        <dd>
+                            <%= student.nickName %>
+                        </dd>
+                        <dt>Gender</dt>
+                        <dd>
+                            <%= student.gender %>
+                        </dd>
+                        <dt>Age</dt>
+                        <dd class="age">
+                            <%= student.birthday %>
+                        </dd>
+                        <dt>Birthdate</dt>
+                        <dd class="birthdate">
+                            <%= student.birthday %>
+                        </dd>
+                        <dt>Number</dt>
+                        <dd>
+                            <%= student.number %>
+                        </dd>
+                        <dt>Homeroom Teacher</dt>
+                        <dd>
+                            <%= teacher.prefix %> <%= teacher.lastName %>
+                        </dd>
+                        <dt>Allergies</dt>
+                        <dd>
+                            <%= student.allergies %>
+                        </dd>
+                        <dt>Other</dt>
+                        <dd>
+                            <%= student.other %>
+                        </dd>
+                        <dt>Email</dt>
+                        <dd>
+                            <%= student.email %>
+                        </dd>
+                        <dt>Password</dt>
+                        <dd>
+                            <%= student.password %>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            
+            <div class="row"></div>
+        </div>
+        <!-- <a href="/student/edit/<%= student.id %>">
+            <button style="margin: 2%" type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update Student Information</button>
+        </a> -->
+    </div>
+    </div>
+    <div class="col-xs-2"></div>

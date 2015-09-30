@@ -1,0 +1,26 @@
+<% layout('students/boilerplate') -%>
+
+<h1><span class="glyphicon glyphicon-education"></span>  Gradebook Home</h1>
+
+<h2>Assignments</h2>
+<p>Click on assignment to view grades</p>
+
+<% assignments.forEach(function (assignment) { %>
+
+<a href=""><% assignment.name %> </a> 
+
+<% }) %>
+ <!-- <span>get from one kid
+date assignment name
+
+
+//edit assignments button->onclick="highlight()"- delete
+//add assignment button, all grade values set to '-', reference homeroom teacher
+
+
+//how to access value that is in an object in an array
+//can I change how dates are displayed
+//attendence: can I make checkboxes that will store that information to the current date
+</span> -->
+
+<a href="/gradebook/assigments"><button type="button" class="btn btn-primary">Edit Assignments</button></a>
