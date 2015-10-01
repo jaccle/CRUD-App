@@ -102,13 +102,14 @@ teacherSchema.pre('save', function(next) {
 // don't want to call this first param "teacher"! We have another teacher defined!
 // statics === CLASS METHODS
 teacherSchema.statics.authenticate = function(formData, callback) {
+    console.log(formData);
     // this refers to the model!
     this.findOne({
-            teachername: formData.teachername
+            email: formData.email
         },
         function(err, teacher) {
             if (teacher === null) {
-                callback("Invalid teachername or password", null);
+                callback("Invalid email or password", null);
             } else {
                 teacher.checkPassword(formData.password, callback);
             }

@@ -5,17 +5,10 @@
             <div class="form-group form-group-lg" style="padding: 0 8%">
                 <h2>Add a Student</h2>
                 <form action="/teachers/<%= teacher.id %>/students" method="POST">
-                <!-- designate numbers so they can correspond to array -->
-                <%= console.log (teacher.counter) %>
-                <% if (teacher.counter === undefined || teacher.counter === null || teacher.counter === '') { %>
-                <input type="hidden" id="counter" name="teacher[counter]" value="0">
-                <label class="control-label" for="number">Number:</label>
-                    <input type="hidden" id="number" value="0" name="student[number]"><div class="well">0</div>
-                <% } else { %>
-                    <input type="hidden" id="counter" name="teacher[counter]" value="<%= teacher.counter +  %>">
+
                     <label class="control-label" for="number">Number:</label>
-                    <input type="hidden" id="number" value="<%= teacher.counter %>" name="student[number]"><div class="well"><%= teacher.counter %></div>
-                    <% } %>
+                    <input class="form-control" type="text" id="number" name="student[number]">
+
                     <label class="control-label" for="fname">First Name:</label>
                     <input type="text" id="fname" name="student[firstName]" class="form-control" autofocus required>
                     <label class="control-label" for="lname">Last Name:</label>

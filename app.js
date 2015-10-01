@@ -43,19 +43,12 @@ app.use(loginMiddleware);
 
 //root
 app.get('/', loginMiddleware, function(req, res) {
-    db.Teacher.find({}).populate('students').exec(function(err, doc) {
-        // req.session.id = null;
-        console.log('SESSION: '+req.session.id, "DOC: "+ doc );
+        console.log('SESSION: '+req.session.id);
         if (req.session.id) {
-            res.redirect('/teachers/' + doc._id);
+            res.redirect('/teachers/' + req.session.id);
         } else {
-            res.render('home', {
-                teacher: doc,
-                students: doc.students,
-                session: req.session.id
-            });
+            res.render('home');
         }
-    });
 });
 
 //login
@@ -63,10 +56,11 @@ app.get('/', loginMiddleware, function(req, res) {
 app.post('/login', loginMiddleware, function(req, res) {
     db.Teacher.authenticate(req.body.teacher, function(err, doc) {
         if (doc) {
+            console.log("here's the teacher!", doc);
             req.login(doc);
             res.redirect('/teachers/' + doc._id);
         } else {
-            console.log(err);
+            console.log("here's the error!", err);
             res.redirect('/');
         }
     });
@@ -77,7 +71,7 @@ app.post('/teachers', loginMiddleware, function(req, res) {
         console.log(doc);
         if (doc) {
             req.login(doc);
-            res.redirect('/teachers/' + req.session.id);
+            res.redirect('/teachers/' + req.session.id + '/edit');
         } else {
             console.log(err);
             res.redirect('/');
@@ -102,16 +96,8 @@ app.post('/teachers', loginMiddleware, function(req, res) {
 
 //logout
 app.get('/logout', function(req, res) {
-    db.Teacher.findById(req.session.id, function(err, doc) {
-        console.log(doc);
-        if (doc) {
-            req.logout(doc);
-            res.redirect('/teachers/' + doc._id);
-        } else {
-            console.log(err);
-            res.redirect('/');
-        }
-    });
+    req.logout();
+    res.redirect('/');
 });
 
 
