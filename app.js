@@ -44,6 +44,8 @@ app.use(loginMiddleware);
 //root
 app.get('/', loginMiddleware, function(req, res) {
     db.Teacher.find({}).populate('students').exec(function(err, doc) {
+        // req.session.id = null;
+        console.log('SESSION: '+req.session.id, "DOC: "+ doc );
         if (req.session.id) {
             res.redirect('/teachers/' + doc._id);
         } else {
@@ -119,7 +121,7 @@ app.get('/teachers/:id', loginMiddleware, function(req, res) {
     db.Teacher.findById(req.session.id).populate('students').exec(function(err, doc) {
         res.render('teacher/index', {
             teacher: doc,
-            students: doc.students
+            // students: doc.students
         });
     });
 });
@@ -388,18 +390,18 @@ app.get('/teachers/:id/grades', loginMiddleware, function(req, res) {
 
 //Add An assignment
 
-app.get('/teachers/:id/grades/new', loginMiddleware, function(req, res) {
-    db.Teacher.findById(req.params.id).populate('students').populate('assignments').exec(
-        function(err, doc) {
-            console.log(doc);
-            console.log("session: " + req.session.id, 'doc: ' + doc);
-            res.render('assignment/new', {
-                assignments: doc.students.assignments,
-                teacher: doc,
-                students: doc.students
-            });
-        });
-});
+// app.get('/teachers/:id/grades/new', loginMiddleware, function(req, res) {
+//     db.Teacher.findById(req.params.id).populate('students').populate('assignments').exec(
+//         function(err, doc) {
+//             console.log(doc);
+//             console.log("session: " + req.session.id, 'doc: ' + doc);
+//             res.render('assignment/new', {
+//                 assignments: doc.students.assignments,
+//                 teacher: doc,
+//                 students: doc.students
+//             });
+//         });
+// });
 
 app.post('/teachers/:id/grades', loginMiddleware, function(req, res) {
     db.Assignment.create(req.body.assignment, function(err, assignment) {

@@ -39,11 +39,11 @@
     <form action="/login" method="POST" class="form-group">
         <div class="form-group">
             <label for="loginEmail">Email</label>
-            <input type="email" class="form-control" id="loginEmail" name="teacher.students.parent1[email]"placeholder="something@example.com" autofocus required>
+            <input type="email" class="form-control" id="loginEmail" name="teacher.students.parent[email]"placeholder="something@example.com" autofocus required>
         </div>
         <div class="form-group">
             <label for="loginpwd">Password</label>
-            <input type="password" class="form-control" id="loginpwd" name="user[password]" placeholder="password" required>
+            <input type="password" class="form-control" id="loginpwd" name="parent[password]" placeholder="password" required>
         </div>
         <div class="btn-group">
     <button type="submit" class="btn btn-primary signin" >
@@ -88,12 +88,12 @@
         <h3>Sign Up</h3>
             <form action="/teachers" method="POST">
                 <div id="email" class="form-group">
-                    <label for="email">Username <span id="newuser" style="display: none">(email is invalid or unavailable)</span></label>
-                    <input type="email" class="form-control" id="user" name="user[email]" placeholder="email" required>
+                    <label for="email">Email <span id="newuser" style="display: none">(email is invalid or unavailable)</span></label>
+                    <input type="email" class="form-control" id="user" name="teacher[email]" placeholder="email" required>
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password (at least 5 characters)</label>
-                    <input type="password" class="form-control" id="pwd" placeholder="password" name="user[password]" required>
+                    <input type="password" class="form-control" id="pwd" placeholder="password" name="teacher[password]" required>
                 </div>
                 <div class="form-group">
                     <label for="confirmpwd">Confirm Password</label>

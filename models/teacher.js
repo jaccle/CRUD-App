@@ -6,10 +6,7 @@ var db = require("./index");
 
 var teacherSchema = new mongoose.Schema({
 	firstname: String,
-	lastName: {
-        type: String,
-        required: true
-    },
+	lastName: String,
 	prefix: String,
 	gradeLevel: String,
 	email: {
