@@ -70,6 +70,18 @@ app.post('/login', loginMiddleware, function(req, res) {
     });
 });
 
+app.post('/teachers', loginMiddleware, function(req, res) {
+    db.Teacher.create(req.body.teacher, function(err, doc) {
+        if (doc) {
+            req.login(doc);
+            res.redirect('/teachers/' + doc._id);
+        } else {
+            console.log(err);
+            res.redirect('/');
+        }
+    });
+});
+
 
 // app.post('/loginStudent', function(req, res) {
 //     console.log('doc');
