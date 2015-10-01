@@ -235,11 +235,12 @@ app.get('/teachers/:teacher_id/students/:id', loginMiddleware, function(req, res
 // Update a student
 app.get('/teachers/:teacher_id/students/:id/edit', loginMiddleware, function(req, res) {
     var id = req.params.id;
-    db.Student.findById(id).populate('teacher').exec(
+    db.Student.findById(id).populate('teacher parent1 parent2 emergency').exec(
         function(err, doc) {
+            console.log('UPDATE DOC: '+doc);
             res.render('students/edit', {
                 student: doc,
-                session: req.session.id,
+                parent: doc.parents,
                 teacher: doc.teacher
             });
         });
@@ -257,30 +258,7 @@ app.put('/teachers/:teacher_id/students/:id', loginMiddleware, function(req, res
         other = req.body.student.other,
         email = req.body.student.email,
         password = req.body.student.password,
-        teacher = req.body.student.teacher,
-        assignments = req.body.student.assignments
-        // ,
-        // parent1 = [{
-        //     fullname: req.body.parent1.fullname,
-        //     relationship: req.body.parent1.relationship,
-        //     email: req.body.parent1.email,
-        //     phone: req.body.parent1.phone,
-        //     workphone: req.body.parent1.workphone
-        // }],
-        // parent2 = [{
-        //     fullname: req.body.parent2.fullname,
-        //     relationship: req.body.parent2.relationship,
-        //     email: req.body.parent1.email,
-        //     phone: req.body.parent2.phone,
-        //     workphone: req.body.parent2.workphone
-        // }],
-        // emergency = [{
-        //     fullname: req.body.emergency.fullname,
-        //     relationship: req.body.emergency.relationship,
-        //     phone: req.body.emergency.phone,
-        //     workphone: req.body.emergency.workphone
-        // }]
-    ;
+        teacher = req.body.student.teacher;
     console.log("request body is: ", req.body);
     db.Student.findByIdAndUpdate(id, {
         firstName: firstName,
@@ -292,8 +270,7 @@ app.put('/teachers/:teacher_id/students/:id', loginMiddleware, function(req, res
         allergies: allergies,
         other: other,
         email: email,
-        password: password,
-        assignments: assignments
+        password: password
     }, function(err, doc) {
         if (doc) {
             doc.populate('teacher');
@@ -302,10 +279,46 @@ app.put('/teachers/:teacher_id/students/:id', loginMiddleware, function(req, res
         } else {
             res.render('students/edit', {
                 student: doc,
-                session: req.session.id,
+                parent: doc.parents,
                 teacher: doc.teacher
             });
         }
+    });
+});
+//update a parent
+
+app.get('/parents/:parent_id/students/:id/edit', loginMiddleware, function(req, res) {
+    var id = req.params.id;
+    db.Student.findById(id).populate('parent parent1 parent2 emergency').exec(
+        function(err, doc) {
+            console.log('UPDATE DOC: '+doc);
+            res.render('students/edit', {
+                student: doc,
+                teacher: doc.parents,
+                parent1: doc.parent1,
+                parent2: doc.parent2,
+                emergency: doc.emergency
+            });
+        });
+});
+app.put('/parents/:id', loginMiddleware, function(req, res) {
+    var id = req.session.id;
+
+    // findByIdAndUpdate does not work with save() which is needed to hash, so use findById and reformat information to be updated as follows
+    db.Parent.findById(id, function(err, parent) {
+        parent.firstname = req.body.parent.fullName;
+        parent.lastName = req.body.parent.relationship;
+        parent.prefix = req.body.parent.email;
+        parent.gradeLevel = req.body.parent.phone;
+        parent.email = req.body.parent.workPhone;
+        parent.password = req.body.parent.password;
+        parent.save(function(err, doc) {
+            if (req.params.id) {
+                res.redirect("/parents/" + doc.id);
+            } else {
+                res.render("/parents/" + doc.id + "/edit");
+            }
+        });
     });
 });
 
@@ -474,8 +487,6 @@ app.get('*', loginMiddleware, function(req, res) {
 });
 
 
-
-
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
     console.log("Starting a server on localhost: 3000");
 });

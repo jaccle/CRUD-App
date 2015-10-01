@@ -25,27 +25,19 @@ var studentSchema = new mongoose.Schema({
                    assignments: [{
                      type: mongoose.Schema.Types.ObjectId,
                      ref: "Assignment"
-                    }]
-                   // parent1: [{
-                   //   fullname: String,
-                   //   relationship: String,
-                   //   email: String,
-                   //   phone: String,
-                   //   workPhone: String
-                   //  }],
-                   // parent2: [{
-                   //   fullname: String,
-                   //   relationship: String,
-                   //   email: String,
-                   //   phone: String,
-                   //   workPhone: String
-                   //  }],
-                   // emergency: [{
-                   //   fullname: String,
-                   //   relationship: String,
-                   //   phone: String,
-                   //   workPhone: String
-                   //  }]
+                    }],
+                   parent1: {
+                     type: mongoose.Schema.Types.ObjectId,
+                     ref: "Parent"
+                    },
+                    parent2: {
+                     type: mongoose.Schema.Types.ObjectId,
+                     ref: "Parent"
+                    },
+                    emergency: {
+                     type: mongoose.Schema.Types.ObjectId,
+                     ref: "Parent"
+                    }
                   });
 
 //can view all assignments, edit assignments from there

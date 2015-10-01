@@ -1,60 +1,135 @@
 <% layout('layout') -%>
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
-        <div class="jumbotron">
+<div>
+
+
             <div class="form-group form-group-lg" style="padding: 0 8%">
                 <h2>Edit Student Information</h2>
-                <form action="/teachers/<%= teacher.id %>/students/<%= student.id %>?_method=put" method="POST">
-                    <div class="form-group">
-                        <label for="teacher">Homeroom Teacher:</label>
-                        <input type="text" id="teacher" value="<%= student.teacher.lastName %>" name="student.teacher[lastName]" class="form-control">
+                <form action="/teachers/<%= teacher.id %>/students/<%= student.id %>?_method=put" method="POST"  class="form-horizontal col-xs-offset-1">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#student" aria-controls="student" role="tab" data-toggle="tab">Student</a></li>
+    <li role="presentation"><a href="#parent1" aria-controls="parent1" role="tab" data-toggle="tab">First Parent/Guardian</a></li>
+    <li role="presentation"><a href="#parent2" aria-controls="parent2" role="tab" data-toggle="tab">Second Parent/Guardain</a></li>
+    <li role="presentation"><a href="#emergency" aria-controls="emergency" role="tab" data-toggle="tab">Emergency Contact</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="student">
+<div class="form-group">
+                        <label class="col-sm-2 control-label" for="teacher">Homeroom Teacher:</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="teacher" value="<%= student.teacher.lastName %>" name="student.teacher[lastName]" class="form-control">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="number">Number:</label>
-                        <input type="number" id="number" value="<%= student.number %>" name="student[number]" class="form-control">
+                        <label class="col-sm-2 control-label" for="number">Number:</label>
+                        <div class="col-sm-7">
+                            <input type="number" id="number" value="<%= student.number %>" name="student[number]" class="form-control">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="fname">First Name:</label>
-                        <input type="text" id="fname" value="<%= student.firstName %>" name="student[firstName]" class="form-control">
+                        <label class="col-sm-2 control-label" for="fname">First Name:</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="fname" value="<%= student.firstName %>" name="student[firstName]" class="form-control">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="lname">Last Name:</label>
-                        <input type="text" id="lname" value="<%= student.lastName %>" name="student[lastName]" class="form-control">
+                        <label class="col-sm-2 control-label" for="lname">Last Name:</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="lname" value="<%= student.lastName %>" name="student[lastName]" class="form-control">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="nname">Nick Name:</label>
-                        <input type="text" id="nname" value="<%= student.nickName %>" name="student[nickName]" class="form-control">
+                        <label class="col-sm-2 control-label" for="nname">Nick Name:</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="nname" value="<%= student.nickName %>" name="student[nickName]" class="form-control">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="gender">Gender:</label>
-                        <input type="text" id="gender" value="<%= student.gender %>" name="student[gender]" class="form-control">
+                        <label class="col-sm-2 control-label" for="gender">Gender:</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="gender" value="<%= student.gender %>" name="student[gender]" class="form-control">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="birthdate">Birth Date:</label>
-                        <input type="date" id="birthdate" value="<%= student.birthday %>" name="student[birthday]" class="form-control">
+                        <label class="col-sm-2 control-label" for="birthdate">Birth Date:</label>
+                        <div class="col-sm-7">
+                            <input type="date" id="birthdate" value="<%= student.birthday %>" name="student[birthday]" class="form-control">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="allergies">Allergies:</label>
-                        <input type="text" id="allergies" value="<%= student.allergies %>" name="student[allergies]" class="form-control">
+                        <label class="col-sm-2 control-label" for="allergies">Allergies:</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="allergies" value="<%= student.allergies %>" name="student[allergies]" class="form-control">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="other">Other Info:</label>
-                        <input type="text" id="other" value="<%= student.other %>" name="student[other]" class="form-control">
+                        <label class="col-sm-2 control-label" for="other">Other Info:</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="other" value="<%= student.other %>" name="student[other]" class="form-control">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="email">Email:</label>
-                        <input type="email" id="email" value="<%= student.email %>" name="student[email]" class="form-control">
+                        <label class="col-sm-2 control-label" for="email">Email:</label>
+                        <div class="col-sm-7">
+                            <input type="email" id="email" value="<%= student.email %>" name="student[email]" class="form-control">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="password">Password:</label>
-                        <input type="password" id="password" value="<%= student.password %>" name="student[password]" class="form-control">
+                        <label class="col-sm-2 control-label" for="password">Password:</label>
+                        <div class="col-sm-7">
+                            <input type="password" id="password" value="<%= student.password %>" name="student[password]" class="form-control">
+                        </div>
                     </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="parent1">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="parent1name">Full Name:</label>
+            <div class="col-sm-7">
+                <input type="text" id="parent1name" value="<%= student.parent[0].fullname %>" name="student.parent[0][fullname]" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="relationship1">Relationship:</label>
+            <div class="col-sm-7">
+                <input type="text" id="relationship1" value="<%= student.parent[0].relationship %>" name="student.parent[0][relationship]" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="parent1email">Email:</label>
+            <div class="col-sm-7">
+                <input type="email" id="parent1email" value="<%= student.parent[0].email %>" name="student.parent[0][email]" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="phone1">Phone:</label>
+            <div class="col-sm-7">
+                <input type="tel" id="phone1" value="<%= student.parent[0].phone %>" name="student.parent[0][phone]" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="workPhone1">Phone:</label>
+            <div class="col-sm-7">
+                <input type="tel" id="workPhone1" value="<%= student.parent[0].workPhone %>" name="student.parent[0][workPhone]" class="form-control">
+            </div>
+        </div>
+    </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="parent2">...</div>
+    <div role="tabpanel" class="tab-pane" id="emergency">...</div>
+  </div>
+
+</div>
+                    
                     <input type="submit" id="add" value="Update Student Info" class="btn btn-primary btn-lg" style="margin: 2%">
                 </form>
                 <form action="/student/<%= student.id %>?_method=delete" method="POST" style="padding: 0 2.5%; width: 100%">
                     <button type="submit" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Delete Student</button>
                 </form>
             </div>
-        </div>
     </div>
     <div class="col-sm-2"></div>

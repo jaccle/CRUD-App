@@ -10,7 +10,19 @@
                     <a href="/teachers/<%= teacher.id %>/students/<%= student.id %>/edit">
                         <button style="margin: 2%" type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update Student Information</button>
                     </a>
-                    <dl>
+                    <dl class="dl-horizontal col-sm-offset-3">
+                        <dt>Number</dt>
+                        <dd>
+                            <%= student.number %>
+                        </dd>
+                        <dt>First Name</dt>
+                        <dd>
+                            <%= student.firstName %>
+                        </dd>
+                        <dt>Last Name</dt>
+                        <dd>
+                            <%= student.lastName %>
+                        </dd>
                         <dt>Nick Name</dt>
                         <dd>
                             <%= student.nickName %>
@@ -26,13 +38,10 @@
                         <dd class="birthdate">
                             <%= student.birthday %>
                         </dd>
-                        <dt>Number</dt>
-                        <dd>
-                            <%= student.number %>
-                        </dd>
                         <dt>Homeroom Teacher</dt>
                         <dd>
-                            <%= teacher.prefix %> <%= teacher.lastName %>
+                            <%= teacher.prefix %>
+                                <%= teacher.lastName %>
                         </dd>
                         <dt>Allergies</dt>
                         <dd>
@@ -53,12 +62,91 @@
                     </dl>
                 </div>
             </div>
-            
-            <div class="row"></div>
         </div>
-        <!-- <a href="/student/edit/<%= student.id %>">
-            <button style="margin: 2%" type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update Student Information</button>
-        </a> -->
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading">Parent/Guardian</div>
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>Full Name</dt>
+                        <dd>
+                            <%= student.parents[0].fullName %>
+                        </dd>
+                        <dt>Relationship</dt>
+                        <dd>
+                            <%= studentparents[0].relationship %>
+                        </dd>
+                        <dt>Email</dt>
+                        <dd>
+                            <%= student.parents[0].email %>
+                        </dd>
+                        <dt>Phone</dt>
+                        <dd>
+                            <%= student.parents[0].phone %>
+                        </dd>
+                        <dt>Work Phone</dt>
+                        <dd>
+                            <%= student.parents[0].workPhone %>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading">Parent/Guardain</div>
+            <div class="panel-body">
+                <dt>Full Name</dt>
+                        <dd>
+                            <%= student.parents[1].fullName %>
+                        </dd>
+                        <dt>Relationship</dt>
+                        <dd>
+                            <%= studentparents[1].relationship %>
+                        </dd>
+                        <dt>Email</dt>
+                        <dd>
+                            <%= student.parents[1].email %>
+                        </dd>
+                        <dt>Phone</dt>
+                        <dd>
+                            <%= student.parents[1].phone %>
+                        </dd>
+                        <dt>Work Phone</dt>
+                        <dd>
+                            <%= student.parents[1].workPhone %>
+                        </dd>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="panel panel-danger">
+            <div class="panel-heading">Emergency Contact</div>
+        <div class="panel-body">
+            <dt>Full Name</dt>
+                        <dd>
+                            <%= student.parents[2].fullName %>
+                        </dd>
+                        <dt>Relationship</dt>
+                        <dd>
+                            <%= studentparents[2].relationship %>
+                        </dd>
+                        <dt>Phone</dt>
+                        <dd>
+                            <%= student.parents[2].phone %>
+                        </dd>
+                        <dt>Work Phone</dt>
+                        <dd>
+                            <%= student.parents[2].workPhone %>
+                        </dd>
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- <a href="/student/edit/<%= student.id %>">
+    <button style="margin: 2%" type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span> Update Student Information</button>
+</a> -->
     </div>
     </div>
     <div class="col-xs-2"></div>
