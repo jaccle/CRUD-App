@@ -1,50 +1,26 @@
-var url = 'http://www.AccessToCommonCore.com/api/';
-var grade = $('#gradeLevel').val();
-console.log($('#gradeLevel').val());
-
 $(document).ready(function() {
-
+    var subject = $('#subject').val();
+    var grade = $('#gradeLevel').val();
+    if (grade > 8) {
+        grade = "HS";
+    }
+    var url = 'http://www.AccessToCommonCore.com/api/' + subject + '/' + grade;
+    console.log(url);
     $.support.cors = true;
 
-    $('#math').on('click', function() {
-        $.ajax({
-            type: 'GET',
-            url: url + 'math/' + grade,
-            show: function() {
-                console.log(url + 'math/' + grade);
-            },
-            accept: 'application/json',
-            dataType: 'json',
-            success: function(data) {
-                makeCommonCoreList(data);
-            },
-            error: function() {
-                console.log(url + 'math/' + grade);
-                alert('standards get failed!');
-            }
-        });
+    $.ajax({
+        type: 'GET',
+        url: url,
+        accept: 'application/json',
+        dataType: 'json',
+        success: function(data) {
+            makeCommonCoreList(data);
+        },
+        error: function() {
+            alert('standards get failed!');
+        }
     });
-
-    $('#ELA').on('click', function() {
-        $.ajax({
-            type: 'GET',
-            url: url + 'ELA/' + grade,
-            show: function() {
-                console.log(url + 'ELA/' + grade);
-            },
-            accept: 'application/json',
-            dataType: 'json',
-            success: function(data) {
-                makeCommonCoreList(data);
-            },
-            error: function() {
-                alert('standards get failed!');
-            }
-        });
-    });
-
 });
-
 
 function makeCommonCoreList(response) {
     var commonCore = response.data.common_core.children;
@@ -89,11 +65,11 @@ function formatCluster(cluster) {
 }
 
 function formatStandard(standard) {
-    return ('<li><input type="checkbox" name="assignment[standards]"  value="<%= standard.standard_code standard.standard %>"/><a>' + standard.standard_code + '</a> ' + standard.standard + '</li>');
+    return ('<li><a>' + standard.standard_code + '</a> ' + standard.standard + '</li>');
 }
 
 function formatStandardDetail(standardDetail) {
-    return ('<li><input type="checkbox" name="assignment[standards]"  value="<%= standardDetail.standard_code standard.standard standardDetail.standard%>"/><a>' + standardDetail.standard_code + '</a> ' + standardDetail.standard + '</li>');
+    return ('<li><a>' + standardDetail.standard_code + '</a> ' + standardDetail.standard + '</li>');
 }
 
 function formatBeginList() {
@@ -108,5 +84,3 @@ function formatDisplayHeaders(firstStandard) {
     var content = '<h3><p>' + firstStandard.standard + '</p><h3>';
     $(content).appendTo("#curriculum-grade-header");
 }
-
-

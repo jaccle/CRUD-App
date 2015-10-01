@@ -102,7 +102,6 @@ teacherSchema.pre('save', function(next) {
 // don't want to call this first param "teacher"! We have another teacher defined!
 // statics === CLASS METHODS
 teacherSchema.statics.authenticate = function(formData, callback) {
-    console.log(formData);
     // this refers to the model!
     this.findOne({
             email: formData.email

@@ -221,13 +221,12 @@ app.post('/teachers/:teacher_id/students', loginMiddleware, function(req, res) {
 //View one student
 app.get('/teachers/:teacher_id/students/:id', loginMiddleware, function(req, res) {
     var id = req.params.id;
-    db.Student.findById(id).populate('teacher').exec(
+    db.Student.findById(id).populate('teacher parent1 parent2 emergency').exec(
         function(err, doc) {
             if (doc) {
                 res.render('students/show', {
                     student: doc,
-                    session: req.session.id,
-                    teacher: doc.teacher
+                    teacher: req.session.id
                 });
             }
         });
@@ -373,21 +372,45 @@ app.get('/teachers/:id/grades', loginMiddleware, function(req, res) {
         });
 });
 
+//view math standards
 
-//Add An assignment
+app.get('/assigments/standards/math', loginMiddleware, function(req, res) {
+    db.Teacher.findById(req.session.id).populate('students').populate('assignments').exec(function(err, doc) {
+            console.log("session: " + req.session.id, 'doc: ' + doc);
+            res.render('assignment/math', {
+                teacher: doc,
+                students: doc.students
+            });
+        });
+});
 
-// app.get('/teachers/:id/grades/new', loginMiddleware, function(req, res) {
-//     db.Teacher.findById(req.params.id).populate('students').populate('assignments').exec(
-//         function(err, doc) {
-//             console.log(doc);
-//             console.log("session: " + req.session.id, 'doc: ' + doc);
-//             res.render('assignment/new', {
-//                 assignments: doc.students.assignments,
-//                 teacher: doc,
-//                 students: doc.students
-//             });
-//         });
-// });
+//view ela standards
+
+app.get('/assigments/standards/ela', loginMiddleware, function(req, res) {
+    db.Teacher.findById(req.session.id).populate('students').populate('assignments').exec(function(err, doc) {
+            console.log("session: " + req.session.id, 'doc: ' + doc);
+            res.render('assignment/ela', {
+                teacher: doc,
+                students: doc.students
+            });
+        });
+});
+
+
+// Add An assignment
+
+app.get('/teachers/:id/grades/new', loginMiddleware, function(req, res) {
+    db.Teacher.findById(req.params.id).populate('students').populate('assignments').exec(
+        function(err, doc) {
+            console.log(doc);
+            console.log("session: " + req.session.id, 'doc: ' + doc);
+            res.render('assignment/new', {
+                assignments: doc.students.assignments,
+                teacher: doc,
+                students: doc.students
+            });
+        });
+});
 
 app.post('/teachers/:id/grades', loginMiddleware, function(req, res) {
     db.Assignment.create(req.body.assignment, function(err, assignment) {

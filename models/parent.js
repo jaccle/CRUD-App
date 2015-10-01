@@ -7,14 +7,8 @@ var db = require("./index");
 var parentSchema = new mongoose.Schema({
 	fullName: String,
 	relationship: String,
-	email: {
-        type: String,
-        required: true
-    },
-	password: {
-        type: String,
-        required: true
-    },
+	email: String,
+	password: String,
 	student: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Student"

@@ -1,6 +1,6 @@
 $(function() {
 
-
+var grade = $('#gradeLevel').val();
 
 
     //can just use age/grade to determine student or parent, so if focusing on elem don't need to worry about if it is a parent or student

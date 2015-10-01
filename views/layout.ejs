@@ -34,9 +34,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="/teachers/<%= teacher._id %>/students"><span class="glyphicon glyphicon-blackboard"></span> Manage Class</a></li>
-                    <li><a href="/teachers/<%= teacher.id %>/grades"><span class="glyphicon glyphicon-education"></span>  Gradebook</a></li>
-                    <!-- <li><a href="#"><span class="glyphicon glyphicon-check" aria-hidden="true"> Attendance</a></li> -->
+                <li><a href="#menu-toggle" id="menu-toggle"><span class="glyphicon glyphicon-indent-right"></span> Toggle Sidebar</a></li>
                     <li><a href="/teachers/<%= teacher.id %>/edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"> Edit Personal Info</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -64,9 +62,57 @@
         <!-- /.container-fluid -->
     </nav>
 
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"><h4>Navigate</h4></li>
+                <li><a href="/teachers/<%= teacher.id %>/edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"> Edit Personal Info</a></li>
+                <li><a href="/teachers/<%= teacher._id %>/students"><b><span class="glyphicon glyphicon-blackboard"></span> Manage Class</a></b></li>
+                    <li><a href="/teachers/<%= teacher._id %>/students/important"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"> Important Information</a></li>
+                    
+                    <li><a href="/students/new"><span class="glyphicon glyphicon-plus"></span> Add Student</a></li>
+                    
+                    <li><a href="/teachers/<%= teacher._id %>/students/birthdays"><span class="glyphicon glyphicon-gift" aria-hidden="true"> Birthdays</a></li>
+            <li><a href="/teachers/<%= teacher._id %>/grades"><b><span class="glyphicon glyphicon-education"></span>  Gradebook</a></b></li>
+                <li><a href="/teachers/<%= teacher._id %>/grades/new"><span class="glyphicon glyphicon-plus"></span> Add Assignment</a></li>
+                <li><a href="/teachers/<%= teacher._id %>/grades/new"><a href="/assigments/standards/math"><span class="glyphicon glyphicon-tasks"> Math Core Standards</a></li>
+                <li><a href="/assigments/standards/ELA"><a href="/teachers/<%= teacher._id %>/grades/new"><span class="glyphicon glyphicon-book"> ELA Core Standards</a></li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+
     <section>
         <%- body -%>
     </section>
 </body>
+
+<br>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
 
 </html>
