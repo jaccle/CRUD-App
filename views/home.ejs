@@ -85,6 +85,22 @@
         </button>
 
         </form>
+        <h3>Sign Up</h3>
+            <form action="/teachers" method="POST">
+                <div id="email" class="form-group">
+                    <label for="email">Username <span id="newuser" style="display: none">(email is invalid or unavailable)</span></label>
+                    <input type="email" class="form-control" id="user" name="user[email]" placeholder="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password (at least 5 characters)</label>
+                    <input type="password" class="form-control" id="pwd" placeholder="password" name="user[password]" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmpwd">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmpwd" placeholder="verify password" required>
+                </div>
+                <button id="signup" type="submit" class="btn btn-default">Sign Up</button>
+            </form>
       </div>
     </div>
   </div>
