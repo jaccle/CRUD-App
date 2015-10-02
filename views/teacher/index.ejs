@@ -1,8 +1,22 @@
 <% layout('layout') -%>
 
 
+<h1 class="text-center todotitle">Welcome <%= teacher.prefix %> <%= teacher.lastName %>!</h1>
+<h3 class="text-center">It's <%= new Date %></h3>
 
-add to do list or something
 
-
-<h4><%= teacher %></h4>
+<div class="col-xs-8 col-sm-offset-2">
+     <h1 class="todotitle h2">To Do List:</h1>
+ 
+  <form action="/teachers" method="POST" id="todo" class="todo">
+     <input type="text" id="enter" placeholder="what do you need to do?">
+     
+     <button id="add_todo">Add Todo</button>
+<!--     <input type="submit" id="add_todo" value="Add Todo">-->
+  </form>
+     <ul id="list">
+        <% teacher.todo.forEach(function (post) { %>
+                <li><%= teacher.todo[post] %></li>
+        <% }) %>
+     </ul>
+</div>

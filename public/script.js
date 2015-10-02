@@ -1,6 +1,6 @@
 $(function() {
 
-var grade = $('#gradeLevel').val();
+    var grade = $('#gradeLevel').val();
 
 
     //can just use age/grade to determine student or parent, so if focusing on elem don't need to worry about if it is a parent or student
@@ -9,9 +9,9 @@ var grade = $('#gradeLevel').val();
     $('#createParent').prop('disabled', true);
     //
     // $('input').on('focusout', function() {
-    // 	if ($('#userKey').val() !== "" && $('#email').val() !== "" && $('#pwd').val() !== "" && $('#confirmpwd').val()) {
-    // 		$('#createParent').prop('disabled', false);
-    // 	}
+    //  if ($('#userKey').val() !== "" && $('#email').val() !== "" && $('#pwd').val() !== "" && $('#confirmpwd').val()) {
+    //      $('#createParent').prop('disabled', false);
+    //  }
     // }
 
     //fancy password matching
@@ -64,17 +64,44 @@ var grade = $('#gradeLevel').val();
 
 
     // // //preselect title from dropdown
-    // 	$('option').text($('#title').val()).prop('checked', true).select();
+    //  $('option').text($('#title').val()).prop('checked', true).select();
     //     $('option').text($('#title').val()).prop('checked', true).select();
 
+    //todo
+
+    $('.todo').on("submit", function(event) {
+        event.preventDefault();
+        console.log("something");
+        addItem();
+        clicky();
+    });
+
+    var completed = $('#list').children();
+
+    function check() {
+        for (var i = 0; i < completed.length; i++) {
+            completed[i].on("click", clicky);
+        }
+
+    }
+
+    function clicky() {
+        $('li').on('click', function() {
+            if ($(this).hasClass("completed")) {
+                $(this).removeClass("completed");
+            } else {
+                $(this).addClass("completed");
+            }
+        });
+    }
 
 
-
-
-
-
-
-
-
+    function addItem() {
+        var newLi = document.createElement("li");
+        var entered = document.querySelector("input");
+        newLi.innerText = entered.value;
+        $('#list').append('<li>' + $('#enter').val() + '</li>');
+        $('#enter').val('');
+    }
 
 });

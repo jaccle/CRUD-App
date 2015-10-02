@@ -68,6 +68,8 @@ app.post('/login', loginMiddleware, function(req, res) {
 
 app.post('/teachers', loginMiddleware, function(req, res) {
     db.Teacher.create(req.body.teacher, function(err, doc) {
+        teacher.todo.push();
+        console.log(teacher.todo);
         console.log(doc);
         if (doc) {
             req.login(doc);
@@ -112,6 +114,9 @@ app.get('/teachers/:id', loginMiddleware, function(req, res) {
     });
 });
 
+//add todo
+
+
 //edit teacher info
 // app.get('/teachers/:id/edit', function(req, res) {
 //     db.Teacher.findById(req.params.id).populate('students').exec(function(err, doc) {
@@ -132,6 +137,8 @@ app.get('/teachers/:id/edit', loginMiddleware, function(req, res) {
         });
     });
 });
+
+
 
 app.put('/teachers/:id', loginMiddleware, function(req, res) {
     var id = req.session.id;

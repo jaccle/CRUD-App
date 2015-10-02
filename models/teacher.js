@@ -21,7 +21,8 @@ var teacherSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Student"
 	}],
-    counter: Number
+    counter: Number,
+    todo: Array
 	//birthday, allergies(for caf), address, phone, classes: student
 });
 

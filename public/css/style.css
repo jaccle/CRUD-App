@@ -7,3 +7,56 @@ li {
 	text-decoration: none;
 }
 body { padding-top: 70px; }
+
+/*@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
+* {
+   font-family: 'Open Sans Condensed', sans-serif;
+}*/
+.todotitle {
+   font-size: 52px;
+   font-weight: 300;
+   margin: 10px 0 20px 0;
+}
+.h2{
+   font-size: 40px;
+   margin-top: 9%;
+}
+#enter {
+   border: none;
+   width: 100%;
+   font-size: 22px;
+   background: #eee;
+   padding: 8px 20px;
+   margin: 10px;
+}
+#list {
+   margin: 20px 0;
+   padding: 0;
+}
+#list li {
+   width: 100%;
+   list-style-type: none;
+   background: #ccc;
+   color: #666;
+   margin-bottom: 1px;
+   padding: 8px 20px;
+   font-size: 22px;
+}
+.completed {
+   text-decoration: line-through;
+   color: #eee;
+}
+#list li:hover {
+   cursor: pointer;
+}
+#add_todo {
+   margin-left: 10px;
+   background: #FF6666;
+   color: #662929;
+   font-size: 16px;
+   border: none;
+   padding: 8px 20px;
+   letter-spacing: 2px;
+   box-shadow: 0 2px 0 0 #662929;
+   border-radius: 4px;
+}
