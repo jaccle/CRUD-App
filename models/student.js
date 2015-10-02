@@ -98,7 +98,7 @@ studentSchema.pre('save', function(next) {
           }
             // define what the password is for the student
 
-            student.password = hash;
+            // student.password = hash;
           console.log(student.password);
             // everything looks good, let's save this!
             next();
