@@ -57,8 +57,6 @@ $(function() {
     var birthday = $('.birthdate').text();
     birthday = birthday.toString().split('-');
     var date = new Date();
-    date = date.addHours(14);
-    $('#datnew').html(date);
     var year = date.getFullYear();
     var age = year - parseInt(birthday[0]);
     $('.age').html(age);

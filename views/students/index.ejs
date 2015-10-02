@@ -17,6 +17,7 @@
                             <th class="col-xs-1">View Information</th>
                             <th class="col-xs-1">Edit Information</th>
                             <th class="col-xs-1">Progress</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
 
@@ -39,7 +40,9 @@
                                 <button type="button" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-pencil"></span></button>
                             </a>
                         </td>
-                        </td>
+                        <td><form action="/teachers/<%= teacher.id %>/students/<%= student.id %>?_method=delete" method="POST"><button type="submit">
+                            <span class="glyphicon glyphicon-remove"></span></button></td>
+                            </form></td>
                         </tr>
                         <% }) %>
                         <% } %>

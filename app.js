@@ -228,12 +228,12 @@ app.post('/teachers/:teacher_id/students', loginMiddleware, function(req, res) {
 //View one student
 app.get('/teachers/:teacher_id/students/:id', loginMiddleware, function(req, res) {
     var id = req.params.id;
-    db.Student.findById(id).populate('teacher parent1 parent2 emergency').exec(
+    db.Student.findById(id).populate('teacher').exec(
         function(err, doc) {
             if (doc) {
                 res.render('students/show', {
                     student: doc,
-                    teacher: req.session.id
+                    teacher: doc.teacher
                 });
             }
         });
@@ -301,7 +301,7 @@ app.get('/parents/:parent_id/students/:id/edit', loginMiddleware, function(req, 
             console.log('UPDATE DOC: '+doc);
             res.render('students/edit', {
                 student: doc,
-                teacher: doc.parents,
+                teacher: doc.teacher,
                 parent1: doc.parent1,
                 parent2: doc.parent2,
                 emergency: doc.emergency
@@ -347,7 +347,10 @@ app.put('/parents/:id', loginMiddleware, function(req, res) {
 app.delete('/teachers/:teacher_id/students/:id', loginMiddleware, function(req, res) {
     var id = req.params.id;
     db.Student.findByIdAndRemove(id, req.body, function(err, doc) {
-        res.redirect("/");
+        res.render("students/index", {
+            teacher: student.teacher,
+            student:doc
+        });
     });
 });
 
